@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 function App() {
-  const [focusTime, setFocusTime] = useState(25 * 60); // 25 minutes in seconds
+  const [focusTime, setFocusTime] = useState(1 * 60); // 25 minutes in seconds
   const [shortBreak, setShortBreak] = useState(5 * 60);
   const [longBreak, setLongBreak] = useState(15 * 60);
 
@@ -81,13 +81,19 @@ function App() {
     }
   };
 
+  const sessionTime =
+    currentSession === "focus"
+      ? focusTime
+      : currentSession === "shortBreak"
+      ? shortBreak
+      : longBreak;
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <div className="absolute top-7 left-7 text-left select-none">
         <h1 className="text-2xl font-bold opacity-90">Pomotan 🍅</h1>
         <p className="text-xs opacity-60">(˶ᵔ ᵕ ᵔ˶) your tiny focus buddy</p>
       </div>
-
       <h2 className="text-xl mb-2 select-none">
         {currentSession === "focus"
           ? "Let’s focus together~ ✨"
@@ -96,9 +102,20 @@ function App() {
           : "Take a longer rest 🌙"}
       </h2>
 
-      <div className="text-8xl min-w-[8ch] text-center tabular-nums tracking-tight font-black mb-6 select-none">
+      {/* Timer Display */}
+      <div className="text-8xl min-w-[8ch] text-center tabular-nums tracking-tight font-black mb-1 select-none">
         {formatTime(timeLeft)}
       </div>
+
+      {/* Progress Bar */}
+      <div className="w-full max-w-3xs h-2 bg-white rounded-full overflow-hidden mb-7">
+        <div
+          className="h-full bg-secondary origin-left transition-transform duration-1000 ease-linear"
+          style={{ transform: `scaleX(${1 - timeLeft / sessionTime})` }}
+        ></div>
+      </div>
+
+      {/* Buttons */}
       <div className="flex">
         <button
           className={`${
