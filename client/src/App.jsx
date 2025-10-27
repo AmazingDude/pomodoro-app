@@ -91,7 +91,7 @@ function App() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <div className="absolute top-7 left-7 text-left select-none">
-        <h1 className="text-2xl font-bold opacity-90">Pomotan 🍅</h1>
+        <h1 className="text-2xl font-bold opacity-100">Pomotan 🍅</h1>
         <p className="text-xs opacity-60">(˶ᵔ ᵕ ᵔ˶) your tiny focus buddy</p>
       </div>
       <h2 className="text-xl mb-2 select-none">
@@ -108,11 +108,24 @@ function App() {
       </div>
 
       {/* Progress Bar */}
-      <div className="w-full max-w-3xs h-2 bg-white rounded-full overflow-hidden mb-7">
+      <div className="w-full max-w-[17.1rem] h-2 bg-white rounded-full overflow-hidden mb-2">
         <div
           className="h-full bg-secondary origin-left transition-transform duration-1000 ease-linear"
           style={{ transform: `scaleX(${1 - timeLeft / sessionTime})` }}
         ></div>
+      </div>
+
+      <div className="flex gap-2 mt-2 mb-6">
+        {[...Array(4)].map((_, i) => (
+          <div
+            key={i}
+            className={`w-3 h-3 rounded-full border-2 transition-all duration-300 ${
+              i < completedSessions % 4
+                ? "bg-primary border-primary"
+                : "border-neutral-300 bg-transparent"
+            }`}
+          ></div>
+        ))}
       </div>
 
       {/* Buttons */}
