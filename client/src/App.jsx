@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 function App() {
-  const [focusTime, setFocusTime] = useState(1 * 60); // 25 minutes in seconds
+  const [focusTime, setFocusTime] = useState(25 * 60); // 25 minutes in seconds
   const [shortBreak, setShortBreak] = useState(5 * 60);
   const [longBreak, setLongBreak] = useState(15 * 60);
 
@@ -90,16 +90,50 @@ function App() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
+      {/* Header */}
       <div className="absolute top-7 left-7 text-left select-none">
         <h1 className="text-2xl font-bold opacity-100">Pomotan 🍅</h1>
         <p className="text-xs opacity-60">(˶ᵔ ᵕ ᵔ˶) your tiny focus buddy</p>
       </div>
+
+      <div className="flex gap-2 mb-10">
+        {[
+          { label: "Focus", type: "focus" },
+          { label: "Short Break", type: "shortBreak" },
+          { label: "Long Break", type: "longBreak" },
+        ].map((session) => (
+          <button
+            key={session.type}
+            className={`px-6 py-2 text-[0.875rem] font-semibold rounded-2xl border-2 transition-all duration-150 cursor-pointer select-none ${
+              currentSession === session.type
+                ? "bg-primary text-white border-primary"
+                : "bg-card text-secondary border-secondary hover:bg-secondary hover:text-card hover:border-secondary"
+            }`}
+            onClick={() => {
+              setCurrentSession(session.type);
+              setIsRunning(false);
+              setTimeLeft(
+                session.type === "focus"
+                  ? focusTime
+                  : session.type === "shortBreak"
+                  ? shortBreak
+                  : longBreak
+              );
+              setShowColon(true);
+            }}
+          >
+            {session.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Session Title */}
       <h2 className="text-xl mb-2 select-none">
         {currentSession === "focus"
           ? "Let’s focus together~ ✨"
           : currentSession === "shortBreak"
           ? "Time for a lil’ break 🍵"
-          : "Take a longer rest 🌙"}
+          : "Take a longer rest 🍃"}
       </h2>
 
       {/* Timer Display */}
@@ -133,7 +167,7 @@ function App() {
         <button
           className={`${
             isRunning
-              ? "px-11 bg-card text-secondary border-secondary"
+              ? "px-11 bg-card text-secondary border-secondary hover:bg-secondary hover:text-card hover:border-secondary"
               : "px-12 bg-primary text-white border-primary"
           } py-[0.4rem] border-2 rounded-l-full hover:opacity-80 transition-all duration-150 cursor-pointer select-none`}
           onClick={() => setIsRunning((prev) => !prev)}
@@ -141,7 +175,7 @@ function App() {
           {isRunning ? "Pause" : "Start"}
         </button>
         <button
-          className="px-11 bg-primary text-white border-primary py-[0.4rem] border-2 rounded-r-full hover:opacity-80 transition-all duration-150 cursor-pointer select-none"
+          className="px-11 bg-primary text-white border-primary py-[0.4rem] border-2 rounded-r-full opacity-90 hover:opacity-70 transition-all duration-150 cursor-pointer select-none"
           onClick={() => {
             setIsRunning(false);
             setTimeLeft(
