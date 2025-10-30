@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTheme } from "./ThemeContext.jsx";
 
 function App() {
   const [focusTime, setFocusTime] = useState(25 * 60); // 25 minutes in seconds
@@ -12,6 +13,8 @@ function App() {
   const [showColon, setShowColon] = useState(true);
 
   const [currentSession, setCurrentSession] = useState("focus"); // focus, shortBreak, longBreak
+
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     if (!isRunning) return;
@@ -89,12 +92,21 @@ function App() {
       : longBreak;
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-bg text-text">
       {/* Header */}
       <div className="absolute top-7 left-7 text-left select-none">
         <h1 className="text-2xl font-bold opacity-100">Pomotan 🍅</h1>
         <p className="text-xs opacity-60">(˶ᵔ ᵕ ᵔ˶) your tiny focus buddy</p>
       </div>
+
+      {/* Theme Toggle Button */}
+      <button
+        onClick={toggleTheme}
+        className="absolute top-7 right-7 px-4 py-2 rounded-lg bg-card text-text border-2 border-secondary hover:bg-secondary hover:text-card transition-all duration-150 cursor-pointer select-none"
+        aria-label="Toggle theme"
+      >
+        {theme === 'light' ? '🌙' : '☀️'}
+      </button>
 
       <div className="flex gap-2 mb-10">
         {[

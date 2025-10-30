@@ -3,10 +3,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "rgb(var(--primary-color) / <alpha-value>)",
-        bg: "rgb(var(--bg-color) / <alpha-value>)",
-        text: "rgb(var(--text-color) / <alpha-value>)",
-        card: "rgb(var(--card-bg) / <alpha-value>)",
+        primary: "var(--primary-color)",
+        secondary: "var(--secondary-color)",
+        bg: "var(--bg-color)",
+        text: "var(--text-color)",
+        card: "var(--card-bg)",
       },
     },
   },
