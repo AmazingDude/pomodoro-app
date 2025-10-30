@@ -8,6 +8,7 @@ export default {
         bg: "var(--bg-color)",
         text: "var(--text-color)",
         card: "var(--card-bg)",
+        neutral: "var(--neutral-color)",
       },
     },
   },

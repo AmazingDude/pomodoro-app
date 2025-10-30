@@ -154,7 +154,7 @@ function App() {
       </div>
 
       {/* Progress Bar */}
-      <div className="w-full max-w-[17.1rem] h-2 bg-white rounded-full overflow-hidden mb-2">
+      <div className="w-full max-w-[17.1rem] h-2 bg-neutral rounded-full overflow-hidden mb-2">
         <div
           className="h-full bg-secondary origin-left transition-transform duration-1000 ease-linear"
           style={{ transform: `scaleX(${1 - timeLeft / sessionTime})` }}
@@ -168,7 +168,7 @@ function App() {
             className={`w-3 h-3 rounded-full border-2 transition-all duration-300 ${
               i < completedSessions % 4
                 ? "bg-primary border-primary"
-                : "border-neutral-300 bg-transparent"
+                : "border-neutral bg-transparent"
             }`}
           ></div>
         ))}

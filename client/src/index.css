@@ -8,6 +8,7 @@
   --color-bg: var(--bg-color);
   --color-text: var(--text-color);
   --color-card: var(--card-bg);
+  --color-neutral: var(--neutral-color);
 }
 
 :root {
@@ -16,6 +17,7 @@
   --primary-color: #ff5c5c;
   --secondary-color: #bdbcf5;
   --card-bg: #fef7ec;
+  --neutral-color: #e5e5e5;
 }
 
 [data-theme='dark'] {
@@ -24,6 +26,7 @@
   --primary-color: #fa6560;
   --secondary-color: #a7c9ff;
   --card-bg: #1e293b;
+  --neutral-color: #475569;
 }
 
 * {
