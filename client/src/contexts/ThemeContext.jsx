@@ -115,7 +115,7 @@ export const themes = {
 export function ThemeProvider({ children }) {
   const [currentTheme, setCurrentTheme] = useState(() => {
     const saved = localStorage.getItem("pomodoroTheme");
-    return saved || "light";
+    return saved || "sunset";
   });
 
   useEffect(() => {
