@@ -53,16 +53,50 @@ function App() {
     return localStorage.getItem("currentSession") || "focus";
   }); // focus, shortBreak, longBreak
 
-  const [focusEndSound] = useState(() => new Audio("/sounds/focus-end.mp3"));
-  const [breakEndSound] = useState(() => new Audio("/sounds/break-end.mp3"));
+  const [focusEndSound] = useState(() => {
+    const audio = new Audio("/sounds/focus-end.mp3");
+    audio.preload = "auto";
+    audio.load();
+    return audio;
+  });
+  const [breakEndSound] = useState(() => {
+    const audio = new Audio("/sounds/break-end.mp3");
+    audio.preload = "auto";
+    audio.load();
+    return audio;
+  });
+  const [audioUnlocked, setAudioUnlocked] = useState(false);
+
+  // Unlock audio on iOS with first user interaction
+  const unlockAudio = () => {
+    if (audioUnlocked) return;
+    focusEndSound
+      .play()
+      .then(() => {
+        focusEndSound.pause();
+        focusEndSound.currentTime = 0;
+      })
+      .catch(() => {});
+    breakEndSound
+      .play()
+      .then(() => {
+        breakEndSound.pause();
+        breakEndSound.currentTime = 0;
+      })
+      .catch(() => {});
+    setAudioUnlocked(true);
+  };
 
   const playSound = (soundType) => {
     if (!settings.soundEnabled) return;
     const audio = soundType === "focus" ? focusEndSound : breakEndSound;
     audio.currentTime = 0;
-    audio.play().catch((error) => {
-      console.log("Audio playback failed:", error);
-    });
+    const playPromise = audio.play();
+    if (playPromise !== undefined) {
+      playPromise.catch((error) => {
+        console.log("Audio playback failed:", error);
+      });
+    }
   };
 
   useEffect(() => {
@@ -225,7 +259,7 @@ function App() {
           </p>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-2 mb-4 sm:mb-10 w-full max-w-md sm:w-auto">
+        <div className="flex flex-col sm:flex-row gap-2 mb-10 sm:mb-10 w-full max-w-md sm:w-auto">
           {[
             { label: "Focus", type: "focus" },
             { label: "Short Break", type: "shortBreak" },
@@ -285,8 +319,9 @@ function App() {
 
           {/* Timer Display */}
           <div
-            className="text-6xl sm:text-7xl md:text-8xl min-w-[8ch] text-center tabular-nums tracking-tight font-black mb-1 select-none text-foreground"
+            className="text-6xl sm:text-7xl md:text-8xl min-w-[8ch] text-center tabular-nums font-black mb-1 select-none text-foreground"
             style={{
+              fontWeight: 900,
               fontVariantNumeric: "tabular-nums",
               fontFeatureSettings: '"tnum"',
             }}
@@ -326,7 +361,10 @@ function App() {
                 ? "px-8 sm:px-11 bg-card text-secondary-text border-border hover:bg-secondary hover:text-secondary-hover-text"
                 : "px-9 sm:px-12 bg-primary text-primary-text border-primary"
             } py-[0.4rem] text-sm sm:text-base border-2 rounded-l-full hover:opacity-80 transition-all duration-150 cursor-pointer select-none flex-1 sm:flex-none`}
-            onClick={() => setIsRunning((prev) => !prev)}
+            onClick={() => {
+              unlockAudio();
+              setIsRunning((prev) => !prev);
+            }}
           >
             {isRunning ? "Pause" : "Start"}
           </button>
