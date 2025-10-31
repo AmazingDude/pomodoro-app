@@ -28,10 +28,16 @@ export default function SettingsDialogContent({
         className="w-[calc(100%-2rem)] max-w-[26.5625rem] mx-auto bg-card text-foreground border-border max-h-[85vh] overflow-y-auto animate-in duration-300 ease-out
                          data-[state=closed]:fade-out-0
                          data-[state=open]:fade-in-0
-                         rounded-lg sm:rounded-lg"
+                         rounded-lg sm:rounded-lg
+                         [&::-webkit-scrollbar]:w-[6px]
+                         [&::-webkit-scrollbar-track]:bg-transparent
+                         [&::-webkit-scrollbar-thumb]:bg-border
+                         [&::-webkit-scrollbar-thumb]:rounded-[4px]
+                         [&::-webkit-scrollbar-thumb:hover]:bg-primary
+                         scrollbar-thin scrollbar-track-transparent scrollbar-thumb-border"
       >
         <DialogHeader>
-          <DialogTitle className="text-xl sm:text-2xl font-bold text-foreground">
+          <DialogTitle className="text-xl sm:text-2xl text-center font-bold text-foreground">
             Settings
           </DialogTitle>
         </DialogHeader>

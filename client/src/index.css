@@ -84,21 +84,28 @@ button {
 
 /* Fix scrollbar for dialog */
 [data-radix-dialog-content]::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 [data-radix-dialog-content]::-webkit-scrollbar-track {
-  background: var(--color-background);
+  background: transparent;
   border-radius: 4px;
 }
 
 [data-radix-dialog-content]::-webkit-scrollbar-thumb {
   background: var(--color-border);
   border-radius: 4px;
+  transition: background 0.2s ease;
 }
 
 [data-radix-dialog-content]::-webkit-scrollbar-thumb:hover {
   background: var(--color-primary);
+}
+
+/* Firefox scrollbar */
+[data-radix-dialog-content] {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
 }
 
 /* Remove number input arrows (spinners) */
@@ -189,4 +196,34 @@ input[type="number"]::-webkit-inner-spin-button {
   height: 8px;
   border-radius: 4px;
   background: var(--color-border);
+}
+
+/* Sonner Toast Styling */
+[data-sonner-toast] {
+  background-color: var(--color-card) !important;
+  border-color: var(--color-border) !important;
+  color: var(--color-foreground) !important;
+}
+
+[data-sonner-toast] [data-content] {
+  color: var(--color-foreground) !important;
+}
+
+[data-sonner-toast] [data-title] {
+  color: var(--color-foreground) !important;
+}
+
+[data-sonner-toast] [data-description] {
+  color: var(--color-foreground) !important;
+  opacity: 0.8;
+}
+
+[data-sonner-toast] [data-button] {
+  background-color: var(--color-primary) !important;
+  color: var(--color-primary-text) !important;
+}
+
+[data-sonner-toast] [data-cancel-button] {
+  background-color: var(--color-secondary) !important;
+  color: var(--color-secondary-text) !important;
 }

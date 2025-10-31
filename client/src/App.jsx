@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useTheme } from "./contexts/ThemeContext";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import SettingsDialogContent from "./components/SettingsDialogContent.jsx";
+import { toast, Toaster } from "sonner";
 
 function App() {
   const [completedSessions, setCompletedSessions] = useState(0);
@@ -30,6 +31,7 @@ function App() {
 
   const [showSettingsDialog, setShowSettingsDialog] = useState(false);
   const [countdown, setCountdown] = useState(null);
+  const [nextSession, setNextSession] = useState(null);
 
   const [focusTime, setFocusTime] = useState(settings.focusDuration * 60);
   const [shortBreak, setShortBreak] = useState(
@@ -111,6 +113,23 @@ function App() {
     localStorage.setItem("currentSession", currentSession);
   }, [currentSession]);
 
+  useEffect(() => {
+    if (countdown === null) return;
+
+    if (countdown === 0) {
+      setCountdown(null);
+      setNextSession(null);
+      setIsRunning(true);
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setCountdown(countdown - 1);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [countdown]);
+
   const formatTime = (time) => {
     const mins = Math.floor(time / 60);
     const secs = time % 60;
@@ -135,12 +154,27 @@ function App() {
       setCompletedSessions(newCount);
 
       playSound("focus");
-      setTimeout(() => {
-        alert("Ding ding! You did it! Let's rest a little. 🍵");
-      }, 100);
 
-      // Decide short or long break - FIXED: Use settings.sessionsBeforeLongBreak
-      if (newCount % settings.sessionsBeforeLongBreak === 0) {
+      const nextSessionType =
+        newCount % settings.sessionsBeforeLongBreak === 0
+          ? "longBreak"
+          : "shortBreak";
+
+      if (settings.autoStart) {
+        // Start countdown before auto-starting
+        setNextSession(nextSessionType);
+        setCountdown(3);
+        setTimeout(() => {
+          toast("Ding ding! You did it! Let's rest a little. 🍵");
+        }, 100);
+      } else {
+        setTimeout(() => {
+          toast("Ding ding! You did it! Let's rest a little. 🍵");
+        }, 100);
+      }
+
+      // Decide short or long break
+      if (nextSessionType === "longBreak") {
         setCurrentSession("longBreak");
         setTimeLeft(longBreak);
       } else {
@@ -152,9 +186,19 @@ function App() {
       currentSession === "longBreak"
     ) {
       playSound("break");
-      setTimeout(() => {
-        alert("Break is over! Time to focus! 🍀");
-      }, 100);
+
+      if (settings.autoStart) {
+        // Start countdown before auto-starting
+        setNextSession("focus");
+        setCountdown(3);
+        setTimeout(() => {
+          toast("Break is over! Time to focus! 🍀");
+        }, 100);
+      } else {
+        setTimeout(() => {
+          toast("Break is over! Time to focus! 🍀");
+        }, 100);
+      }
 
       setCurrentSession("focus");
       setTimeLeft(focusTime);
@@ -170,7 +214,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
-      <div className="flex flex-col items-center justify-center min-h-screen px-4 sm:px-6">
+      <div className="flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 -mt-12 sm:mt-0">
         {/* Header */}
         <div className="absolute top-4 left-4 sm:top-7 sm:left-7 text-left select-none">
           <h1 className="text-xl sm:text-2xl font-bold opacity-100 text-foreground">
@@ -181,7 +225,7 @@ function App() {
           </p>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-2 mb-8 sm:mb-10 w-full max-w-md sm:w-auto">
+        <div className="flex flex-col sm:flex-row gap-2 mb-4 sm:mb-10 w-full max-w-md sm:w-auto">
           {[
             { label: "Focus", type: "focus" },
             { label: "Short Break", type: "shortBreak" },
@@ -218,7 +262,16 @@ function App() {
           className="flex flex-col items-center justify-center transition-all duration-300 animate-fadeIn"
         >
           <h2 className="text-base sm:text-xl mb-2 select-none text-foreground text-center px-4">
-            {currentSession === "focus" ? (
+            {countdown !== null ? (
+              <>
+                {nextSession === "focus"
+                  ? "Focus session"
+                  : nextSession === "shortBreak"
+                  ? "Short break"
+                  : "Long break"}{" "}
+                starts in {countdown}... ⏱️
+              </>
+            ) : currentSession === "focus" ? (
               <>Let's focus together~ ✨</>
             ) : currentSession === "shortBreak" ? (
               <>
@@ -231,7 +284,13 @@ function App() {
           </h2>
 
           {/* Timer Display */}
-          <div className="text-6xl sm:text-7xl md:text-8xl min-w-[8ch] text-center tabular-nums tracking-tight font-black mb-1 select-none text-foreground">
+          <div
+            className="text-6xl sm:text-7xl md:text-8xl min-w-[8ch] text-center tabular-nums tracking-tight font-black mb-1 select-none text-foreground"
+            style={{
+              fontVariantNumeric: "tabular-nums",
+              fontFeatureSettings: '"tnum"',
+            }}
+          >
             {formatTime(timeLeft)}
           </div>
         </div>
@@ -323,6 +382,7 @@ function App() {
           />
         </Dialog>
       </div>
+      <Toaster position="top-center" />
     </div>
   );
 }
