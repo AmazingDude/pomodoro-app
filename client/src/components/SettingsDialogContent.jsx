@@ -25,21 +25,21 @@ export default function SettingsDialogContent({
       )}
 
       <DialogContent
-        className="sm:max-w-[26.5625rem] bg-card text-foreground border-border max-h-[85vh] overflow-y-auto animate-in duration-300 ease-out
+        className="w-[calc(100%-2rem)] max-w-[26.5625rem] mx-auto bg-card text-foreground border-border max-h-[85vh] overflow-y-auto animate-in duration-300 ease-out
                          data-[state=closed]:fade-out-0
                          data-[state=open]:fade-in-0
-                         sm:rounded-lg"
+                         rounded-lg sm:rounded-lg"
       >
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-foreground">
+          <DialogTitle className="text-xl sm:text-2xl font-bold text-foreground">
             Settings
           </DialogTitle>
         </DialogHeader>
 
-        <div className="space-y-5 py-2">
+        <div className="space-y-4 sm:space-y-5 py-2">
           {/* Theme Selector */}
           <div>
-            <label className="block text-sm font-semibold mb-3 text-foreground">
+            <label className="block text-xs sm:text-sm font-semibold mb-2 sm:mb-3 text-foreground">
               Theme
             </label>
             <div className="grid grid-cols-2 gap-2">
@@ -47,18 +47,18 @@ export default function SettingsDialogContent({
                 <button
                   key={key}
                   onClick={() => setCurrentTheme(key)}
-                  className={`p-3 rounded-lg border-2 transition-all capitalize ${
+                  className={`p-2 sm:p-3 rounded-lg border-2 transition-all capitalize ${
                     currentTheme === key
                       ? "border-primary bg-primary/10"
                       : "border-border hover:border-primary/50"
                   }`}
                 >
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1.5 sm:gap-2">
                     <div
-                      className="w-4 h-4 rounded-full"
+                      className="w-3 h-3 sm:w-4 sm:h-4 rounded-full"
                       style={{ backgroundColor: themeOption.displayColor }}
                     ></div>
-                    <span className="text-sm font-medium text-foreground">
+                    <span className="text-xs sm:text-sm font-medium text-foreground">
                       {themeOption.name}
                     </span>
                   </div>
@@ -69,66 +69,46 @@ export default function SettingsDialogContent({
 
           {/* Focus Duration */}
           <div>
-            <label className="block text-sm font-semibold mb-2 text-foreground">
+            <label className="block text-xs sm:text-sm font-semibold mb-2 text-foreground">
               Focus Duration (minutes)
             </label>
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() =>
-                  setSettings((prev) => ({
-                    ...prev,
-                    focusDuration: Math.max(1, prev.focusDuration - 1),
-                  }))
-                }
-                className="w-10 h-10 rounded-lg border-2 border-border hover:bg-primary hover:text-white hover:border-primary transition-all flex items-center justify-center font-bold"
-              >
-                −
-              </button>
+            <div className="space-y-2">
               <input
                 type="number"
                 value={settings.focusDuration}
                 onChange={(e) =>
                   setSettings((prev) => ({
                     ...prev,
-                    focusDuration: Math.max(1, parseInt(e.target.value) || 1),
+                    focusDuration: Math.max(
+                      1,
+                      Math.min(60, parseInt(e.target.value) || 1)
+                    ),
                   }))
                 }
-                className="flex-1 text-center text-lg font-semibold border-2 border-border rounded-lg py-2 focus:outline-none focus:border-primary bg-card text-foreground"
+                className="w-full text-center text-base sm:text-lg font-semibold border-2 border-border rounded-lg py-1.5 sm:py-2 focus:outline-none focus:border-primary bg-card text-foreground"
               />
-              <button
-                onClick={() =>
+              <input
+                type="range"
+                min="1"
+                max="60"
+                value={settings.focusDuration}
+                onChange={(e) =>
                   setSettings((prev) => ({
                     ...prev,
-                    focusDuration: Math.min(60, prev.focusDuration + 1),
+                    focusDuration: parseInt(e.target.value),
                   }))
                 }
-                className="w-10 h-10 rounded-lg border-2 border-border hover:bg-primary hover:text-white hover:border-primary transition-all flex items-center justify-center font-bold"
-              >
-                +
-              </button>
+                className="w-full h-2 bg-secondary rounded-lg appearance-none cursor-pointer slider"
+              />
             </div>
           </div>
 
           {/* Short Break Duration */}
           <div>
-            <label className="block text-sm font-semibold mb-2 text-foreground">
+            <label className="block text-xs sm:text-sm font-semibold mb-2 text-foreground">
               Short Break (minutes)
             </label>
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() =>
-                  setSettings((prev) => ({
-                    ...prev,
-                    shortBreakDuration: Math.max(
-                      1,
-                      prev.shortBreakDuration - 1
-                    ),
-                  }))
-                }
-                className="w-10 h-10 rounded-lg border-2 border-border hover:bg-primary hover:text-white hover:border-primary transition-all flex items-center justify-center font-bold"
-              >
-                −
-              </button>
+            <div className="space-y-2">
               <input
                 type="number"
                 value={settings.shortBreakDuration}
@@ -137,46 +117,34 @@ export default function SettingsDialogContent({
                     ...prev,
                     shortBreakDuration: Math.max(
                       1,
-                      parseInt(e.target.value) || 1
+                      Math.min(30, parseInt(e.target.value) || 1)
                     ),
                   }))
                 }
-                className="flex-1 text-center text-lg font-semibold border-2 border-border rounded-lg py-2 focus:outline-none focus:border-primary bg-card text-foreground"
+                className="w-full text-center text-base sm:text-lg font-semibold border-2 border-border rounded-lg py-1.5 sm:py-2 focus:outline-none focus:border-primary bg-card text-foreground"
               />
-              <button
-                onClick={() =>
+              <input
+                type="range"
+                min="1"
+                max="30"
+                value={settings.shortBreakDuration}
+                onChange={(e) =>
                   setSettings((prev) => ({
                     ...prev,
-                    shortBreakDuration: Math.min(
-                      30,
-                      prev.shortBreakDuration + 1
-                    ),
+                    shortBreakDuration: parseInt(e.target.value),
                   }))
                 }
-                className="w-10 h-10 rounded-lg border-2 border-border hover:bg-primary hover:text-white hover:border-primary transition-all flex items-center justify-center font-bold"
-              >
-                +
-              </button>
+                className="w-full h-2 bg-secondary rounded-lg appearance-none cursor-pointer slider"
+              />
             </div>
           </div>
 
           {/* Long Break Duration */}
           <div>
-            <label className="block text-sm font-semibold mb-2 text-foreground">
+            <label className="block text-xs sm:text-sm font-semibold mb-2 text-foreground">
               Long Break (minutes)
             </label>
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() =>
-                  setSettings((prev) => ({
-                    ...prev,
-                    longBreakDuration: Math.max(1, prev.longBreakDuration - 1),
-                  }))
-                }
-                className="w-10 h-10 rounded-lg border-2 border-border hover:bg-primary hover:text-white hover:border-primary transition-all flex items-center justify-center font-bold"
-              >
-                −
-              </button>
+            <div className="space-y-2">
               <input
                 type="number"
                 value={settings.longBreakDuration}
@@ -185,46 +153,34 @@ export default function SettingsDialogContent({
                     ...prev,
                     longBreakDuration: Math.max(
                       1,
-                      parseInt(e.target.value) || 1
+                      Math.min(60, parseInt(e.target.value) || 1)
                     ),
                   }))
                 }
-                className="flex-1 text-center text-lg font-semibold border-2 border-border rounded-lg py-2 focus:outline-none focus:border-primary bg-card text-foreground"
+                className="w-full text-center text-base sm:text-lg font-semibold border-2 border-border rounded-lg py-1.5 sm:py-2 focus:outline-none focus:border-primary bg-card text-foreground"
               />
-              <button
-                onClick={() =>
+              <input
+                type="range"
+                min="1"
+                max="60"
+                value={settings.longBreakDuration}
+                onChange={(e) =>
                   setSettings((prev) => ({
                     ...prev,
-                    longBreakDuration: Math.min(60, prev.longBreakDuration + 1),
+                    longBreakDuration: parseInt(e.target.value),
                   }))
                 }
-                className="w-10 h-10 rounded-lg border-2 border-border hover:bg-primary hover:text-white hover:border-primary transition-all flex items-center justify-center font-bold"
-              >
-                +
-              </button>
+                className="w-full h-2 bg-secondary rounded-lg appearance-none cursor-pointer slider"
+              />
             </div>
           </div>
 
           {/* Sessions Before Long Break */}
           <div>
-            <label className="block text-sm font-semibold mb-2 text-foreground">
+            <label className="block text-xs sm:text-sm font-semibold mb-2 text-foreground">
               Sessions before long break
             </label>
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() =>
-                  setSettings((prev) => ({
-                    ...prev,
-                    sessionsBeforeLongBreak: Math.max(
-                      2,
-                      prev.sessionsBeforeLongBreak - 1
-                    ),
-                  }))
-                }
-                className="w-10 h-10 rounded-lg border-2 border-border hover:bg-primary hover:text-white hover:border-primary transition-all flex items-center justify-center font-bold"
-              >
-                −
-              </button>
+            <div className="space-y-2">
               <input
                 type="number"
                 value={settings.sessionsBeforeLongBreak}
@@ -237,28 +193,27 @@ export default function SettingsDialogContent({
                     ),
                   }))
                 }
-                className="flex-1 text-center text-lg font-semibold border-2 border-border rounded-lg py-2 focus:outline-none focus:border-primary bg-card text-foreground"
+                className="w-full text-center text-base sm:text-lg font-semibold border-2 border-border rounded-lg py-1.5 sm:py-2 focus:outline-none focus:border-primary bg-card text-foreground"
               />
-              <button
-                onClick={() =>
+              <input
+                type="range"
+                min="2"
+                max="8"
+                value={settings.sessionsBeforeLongBreak}
+                onChange={(e) =>
                   setSettings((prev) => ({
                     ...prev,
-                    sessionsBeforeLongBreak: Math.min(
-                      8,
-                      prev.sessionsBeforeLongBreak + 1
-                    ),
+                    sessionsBeforeLongBreak: parseInt(e.target.value),
                   }))
                 }
-                className="w-10 h-10 rounded-lg border-2 border-border hover:bg-primary hover:text-white hover:border-primary transition-all flex items-center justify-center font-bold"
-              >
-                +
-              </button>
+                className="w-full h-2 bg-secondary rounded-lg appearance-none cursor-pointer slider"
+              />
             </div>
           </div>
 
           {/* Auto-start Toggle */}
           <div className="flex items-center justify-between">
-            <label className="text-sm font-semibold text-foreground">
+            <label className="text-xs sm:text-sm font-semibold text-foreground">
               Auto-start sessions
             </label>
             <button
@@ -282,7 +237,7 @@ export default function SettingsDialogContent({
 
           {/* Sound Toggle */}
           <div className="flex items-center justify-between">
-            <label className="text-sm font-semibold text-foreground">
+            <label className="text-xs sm:text-sm font-semibold text-foreground">
               Sound notifications
             </label>
             <button

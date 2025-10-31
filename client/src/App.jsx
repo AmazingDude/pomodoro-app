@@ -170,18 +170,18 @@ function App() {
 
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
-      <div className="flex flex-col items-center justify-center min-h-screen">
+      <div className="flex flex-col items-center justify-center min-h-screen px-4 sm:px-6">
         {/* Header */}
-        <div className="absolute top-7 left-7 text-left select-none">
-          <h1 className="text-2xl font-bold opacity-100 text-foreground">
+        <div className="absolute top-4 left-4 sm:top-7 sm:left-7 text-left select-none">
+          <h1 className="text-xl sm:text-2xl font-bold opacity-100 text-foreground">
             Pomotan 🍅
           </h1>
-          <p className="text-xs opacity-60 text-foreground">
+          <p className="text-[0.65rem] sm:text-xs opacity-60 text-foreground">
             (˶ᵔ ᵕ ᵔ˶) your tiny focus buddy
           </p>
         </div>
 
-        <div className="flex gap-2 mb-10">
+        <div className="flex flex-col sm:flex-row gap-2 mb-8 sm:mb-10 w-full max-w-md sm:w-auto">
           {[
             { label: "Focus", type: "focus" },
             { label: "Short Break", type: "shortBreak" },
@@ -189,7 +189,7 @@ function App() {
           ].map((session) => (
             <button
               key={session.type}
-              className={`px-6 py-2 text-[0.875rem] font-semibold rounded-2xl border-2 transition-all duration-150 cursor-pointer select-none ${
+              className={`px-4 sm:px-6 py-2 text-[0.8rem] sm:text-[0.875rem] font-semibold rounded-2xl border-2 transition-all duration-150 cursor-pointer select-none ${
                 currentSession === session.type
                   ? "bg-primary text-primary-text border-primary"
                   : "bg-card text-secondary-text border-border hover:bg-secondary hover:text-secondary-hover-text"
@@ -217,7 +217,7 @@ function App() {
           key={currentSession}
           className="flex flex-col items-center justify-center transition-all duration-300 animate-fadeIn"
         >
-          <h2 className="text-xl mb-2 select-none text-foreground">
+          <h2 className="text-base sm:text-xl mb-2 select-none text-foreground text-center px-4">
             {currentSession === "focus" ? (
               <>Let's focus together~ ✨</>
             ) : currentSession === "shortBreak" ? (
@@ -231,13 +231,13 @@ function App() {
           </h2>
 
           {/* Timer Display */}
-          <div className="text-8xl min-w-[8ch] text-center tabular-nums tracking-tight font-black mb-1 select-none text-foreground">
+          <div className="text-6xl sm:text-7xl md:text-8xl min-w-[8ch] text-center tabular-nums tracking-tight font-black mb-1 select-none text-foreground">
             {formatTime(timeLeft)}
           </div>
         </div>
 
         {/* Progress Bar */}
-        <div className="w-full max-w-[17.1rem] h-2 bg-card rounded-full overflow-hidden mb-2  border-border">
+        <div className="w-full max-w-[90%] sm:max-w-[17.1rem] h-2 bg-card rounded-full overflow-hidden mb-2  border-border">
           <div
             className="h-full bg-progress origin-left transition-transform duration-1000 ease-linear"
             style={{
@@ -250,7 +250,7 @@ function App() {
           {[...Array(settings.sessionsBeforeLongBreak)].map((_, i) => (
             <div
               key={i}
-              className={`w-3 h-3 rounded-full border-2 transition-all duration-300 ${
+              className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full border-2 transition-all duration-300 ${
                 i < completedSessions % settings.sessionsBeforeLongBreak
                   ? "bg-primary border-primary"
                   : "border-border bg-transparent"
@@ -260,19 +260,19 @@ function App() {
         </div>
 
         {/* Buttons */}
-        <div className="flex">
+        <div className="flex w-full max-w-xs sm:max-w-none sm:w-auto">
           <button
             className={`${
               isRunning
-                ? "px-11 bg-card text-secondary-text border-border hover:bg-secondary hover:text-secondary-hover-text"
-                : "px-12 bg-primary text-primary-text border-primary"
-            } py-[0.4rem] border-2 rounded-l-full hover:opacity-80 transition-all duration-150 cursor-pointer select-none`}
+                ? "px-8 sm:px-11 bg-card text-secondary-text border-border hover:bg-secondary hover:text-secondary-hover-text"
+                : "px-9 sm:px-12 bg-primary text-primary-text border-primary"
+            } py-[0.4rem] text-sm sm:text-base border-2 rounded-l-full hover:opacity-80 transition-all duration-150 cursor-pointer select-none flex-1 sm:flex-none`}
             onClick={() => setIsRunning((prev) => !prev)}
           >
             {isRunning ? "Pause" : "Start"}
           </button>
           <button
-            className="px-11 bg-primary text-primary-text border-primary py-[0.4rem] border-2 rounded-r-full opacity-90 hover:opacity-70 transition-all duration-150 cursor-pointer select-none"
+            className="px-8 sm:px-11 py-[0.4rem] text-sm sm:text-base bg-primary text-primary-text border-primary border-2 rounded-r-full opacity-90 hover:opacity-70 transition-all duration-150 cursor-pointer select-none flex-1 sm:flex-none"
             onClick={() => {
               setIsRunning(false);
               setTimeLeft(
@@ -292,7 +292,7 @@ function App() {
         {/* Settings Button - Bottom Right */}
         <Dialog open={showSettingsDialog} onOpenChange={setShowSettingsDialog}>
           <DialogTrigger asChild>
-            <button className="fixed bottom-8 right-8 w-13 h-13 bg-primary text-primary-text rounded-3xl shadow-lg hover:shadow-xl hover:scale-105 hover:opacity-90 transition-all flex items-center justify-center cursor-pointer">
+            <button className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 w-12 h-12 sm:w-13 sm:h-13 bg-primary text-primary-text rounded-3xl shadow-lg hover:shadow-xl hover:scale-105 hover:opacity-90 transition-all flex items-center justify-center cursor-pointer">
               <svg
                 className="w-6 h-6"
                 fill="none"
