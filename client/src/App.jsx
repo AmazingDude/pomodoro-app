@@ -147,6 +147,27 @@ function App() {
     localStorage.setItem("currentSession", currentSession);
   }, [currentSession]);
 
+  // Update document title based on timer
+  useEffect(() => {
+    const mins = Math.floor(timeLeft / 60);
+    const secs = timeLeft % 60;
+    const formattedTime = `${mins.toString().padStart(2, "0")}:${secs
+      .toString()
+      .padStart(2, "0")}`;
+
+    if (isRunning) {
+      const sessionName =
+        currentSession === "focus"
+          ? "Focus"
+          : currentSession === "shortBreak"
+          ? "Short Break"
+          : "Long Break";
+      document.title = `${formattedTime} | ${sessionName}`;
+    } else {
+      document.title = "Pomotan";
+    }
+  }, [timeLeft, isRunning, currentSession]);
+
   useEffect(() => {
     if (countdown === null) return;
 
