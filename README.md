@@ -1,7 +1,5 @@
 # Pomotan 🍅
 
-#### Video Demo: https://youtu.be/-DaXHHYOGUc
-
 #### Description:
 
 Pomotan is a modern, feature-rich Pomodoro timer web application designed to help users enhance their productivity and maintain focus through structured work intervals. The name "Pomotan" combines "Pomodoro" (the time management technique) with a playful, approachable aesthetic. This project was built as my final project for Harvard's CS50x course, demonstrating proficiency in web development, React state management, and user interface design.
