@@ -340,8 +340,9 @@ function App() {
 
           {/* Timer Display */}
           <div
-            className="text-6xl sm:text-7xl md:text-8xl min-w-[8ch] text-center tabular-nums font-black mb-1 select-none text-foreground"
+            className="min-w-[8ch] text-center tabular-nums tracking-tight font-black leading-none mb-1 select-none text-foreground text-6xl sm:text-7xl md:text-8xl lg:text-9xl"
             style={{
+              fontSize: "clamp(3.75rem, 6.5vw, 12rem)",
               fontWeight: 900,
               fontVariantNumeric: "tabular-nums",
               fontFeatureSettings: '"tnum"',
