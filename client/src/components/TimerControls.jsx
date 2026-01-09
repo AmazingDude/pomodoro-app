@@ -1,8 +1,8 @@
-export function TimerControls({ 
-  isRunning, 
-  onStartPause, 
+export function TimerControls({
+  isRunning,
+  onStartPause,
   onReset,
-  onAudioUnlock 
+  onAudioUnlock,
 }) {
   const handleStartPause = () => {
     onAudioUnlock();

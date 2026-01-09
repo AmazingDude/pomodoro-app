@@ -34,12 +34,13 @@ export function usePictureInPicture(timerState, settings) {
   useEffect(() => {
     if (!pipWindow || pipWindow.closed || !elementsRef.current) return;
 
-    const { timerEl, progressEl, minutesSpan, colonSpan, secondsSpan } = elementsRef.current;
+    const { timerEl, progressEl, minutesSpan, colonSpan, secondsSpan } =
+      elementsRef.current;
 
     if (timerEl && minutesSpan && colonSpan && secondsSpan) {
       const mins = Math.floor(timeLeft / 60);
       const secs = timeLeft % 60;
-      
+
       minutesSpan.textContent = mins.toString().padStart(2, "0");
       secondsSpan.textContent = secs.toString().padStart(2, "0");
       colonSpan.style.opacity = showColon ? "1" : "0.8";
@@ -72,8 +73,11 @@ export function usePictureInPicture(timerState, settings) {
     const borderColor = styles.getPropertyValue("--color-border").trim();
 
     dots.forEach((dot, i) => {
-      const isCompleted = i < completedSessions % settings.sessionsBeforeLongBreak;
-      dot.style.border = `2px solid ${isCompleted ? primaryColor : borderColor}`;
+      const isCompleted =
+        i < completedSessions % settings.sessionsBeforeLongBreak;
+      dot.style.border = `2px solid ${
+        isCompleted ? primaryColor : borderColor
+      }`;
       dot.style.background = isCompleted ? primaryColor : "transparent";
     });
   }, [pipWindow, completedSessions, settings.sessionsBeforeLongBreak]);
@@ -88,8 +92,8 @@ export function usePictureInPicture(timerState, settings) {
 
     try {
       const pip = await window.documentPictureInPicture.requestWindow({
-        width: 400,
-        height: 300,
+        width: 300,
+        height: 220,
       });
 
       setPipWindow(pip);
@@ -240,7 +244,7 @@ export function usePictureInPicture(timerState, settings) {
       // Create timer spans and cache them
       const minutesSpan = pip.document.createElement("span");
       minutesSpan.style.display = "inline-block";
-      
+
       const colonSpan = pip.document.createElement("span");
       colonSpan.style.cssText = `
         display: inline-block;
@@ -249,7 +253,7 @@ export function usePictureInPicture(timerState, settings) {
         transition: opacity 100ms;
       `;
       colonSpan.textContent = ":";
-      
+
       const secondsSpan = pip.document.createElement("span");
       secondsSpan.style.display = "inline-block";
 

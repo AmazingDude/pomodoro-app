@@ -7,7 +7,9 @@ export function useTimer(settings, playSound) {
   const [nextSession, setNextSession] = useState(null);
 
   const [focusTime, setFocusTime] = useState(settings.focusDuration * 60);
-  const [shortBreak, setShortBreak] = useState(settings.shortBreakDuration * 60);
+  const [shortBreak, setShortBreak] = useState(
+    settings.shortBreakDuration * 60
+  );
   const [longBreak, setLongBreak] = useState(settings.longBreakDuration * 60);
 
   const [timeLeft, setTimeLeft] = useState(() => {
@@ -39,8 +41,10 @@ export function useTimer(settings, playSound) {
     setLongBreak(settings.longBreakDuration * 60);
 
     if (currentSession === "focus") setTimeLeft(settings.focusDuration * 60);
-    if (currentSession === "shortBreak") setTimeLeft(settings.shortBreakDuration * 60);
-    if (currentSession === "longBreak") setTimeLeft(settings.longBreakDuration * 60);
+    if (currentSession === "shortBreak")
+      setTimeLeft(settings.shortBreakDuration * 60);
+    if (currentSession === "longBreak")
+      setTimeLeft(settings.longBreakDuration * 60);
 
     setIsRunning(false);
   }, [settings, currentSession]);

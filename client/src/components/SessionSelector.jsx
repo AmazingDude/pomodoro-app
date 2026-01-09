@@ -1,9 +1,9 @@
-export function SessionSelector({ 
-  currentSession, 
+export function SessionSelector({
+  currentSession,
   onSessionChange,
   focusTime,
   shortBreak,
-  longBreak 
+  longBreak,
 }) {
   const sessions = [
     { label: "Focus", type: "focus", time: focusTime },
