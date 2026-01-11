@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTheme } from "./contexts/ThemeContext";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import SettingsDialogContent from "./components/SettingsDialogContent.jsx";
@@ -101,6 +101,7 @@ function App() {
             timer.setIsRunning((prev) => !prev);
           }}
           onReset={timer.handleReset}
+          onResetAll={timer.handleResetAll}
           onAudioUnlock={unlockAudio}
         />
 

@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 export function useTimer(settings, playSound) {
-  const [completedSessions, setCompletedSessions] = useState(0);
+  const [completedSessions, setCompletedSessions] = useState(() => {
+    const saved = localStorage.getItem("completedSessions");
+    return saved ? parseInt(saved, 10) : 0;
+  });
   const [countdown, setCountdown] = useState(null);
   const [nextSession, setNextSession] = useState(null);
 
@@ -83,6 +86,11 @@ export function useTimer(settings, playSound) {
   useEffect(() => {
     localStorage.setItem("currentSession", currentSession);
   }, [currentSession]);
+
+  // Persist completedSessions to localStorage
+  useEffect(() => {
+    localStorage.setItem("completedSessions", completedSessions.toString());
+  }, [completedSessions]);
 
   // Update document title
   useEffect(() => {
@@ -196,6 +204,16 @@ export function useTimer(settings, playSound) {
     setShowColon(true);
   };
 
+  const handleResetAll = () => {
+    setIsRunning(false);
+    setTimeLeft(focusTime);
+    setShowColon(true);
+    setCurrentSession("focus");
+    setCompletedSessions(0);
+    setCountdown(null);
+    setNextSession(null);
+  };
+
   return {
     timeLeft,
     isRunning,
@@ -211,5 +229,6 @@ export function useTimer(settings, playSound) {
     setIsRunning,
     handleSessionChange,
     handleReset,
+    handleResetAll,
   };
 }

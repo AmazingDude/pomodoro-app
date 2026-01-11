@@ -75,24 +75,6 @@ export const themes = {
     },
   },
 
-  periwinkle: {
-    name: "periwinkle",
-    displayColor: "#b3b5f4",
-    cssVars: {
-      "--color-background": "#f7f0fa",
-      "--color-foreground": "#32283b",
-      "--color-primary": "#c97be2",
-      "--color-primary-text": "#ffffff",
-      "--color-secondary": "#e6d4f5",
-      "--color-secondary-text": "#32283b",
-      "--color-secondary-hover": "#d9b8ef",
-      "--color-secondary-hover-text": "#251c2e",
-      "--color-border": "#d2bce8",
-      "--color-card": "#fbf7ff",
-      "--color-progress": "#d992f0",
-    },
-  },
-
   mono: {
     name: "mono",
     displayColor: "#D9D9D9",

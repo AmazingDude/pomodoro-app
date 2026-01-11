@@ -43,6 +43,92 @@ button {
   animation: fadeIn 0.4s ease;
 }
 
+/* Shadcn component animations */
+@keyframes overlay-show {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes overlay-hide {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes content-show {
+  from { 
+    opacity: 0; 
+    scale: 0.96;
+  }
+  to { 
+    opacity: 1; 
+    scale: 1;
+  }
+}
+
+@keyframes content-hide {
+  from { 
+    opacity: 1; 
+    scale: 1;
+  }
+  to { 
+    opacity: 0; 
+    scale: 0.96;
+  }
+}
+
+@keyframes dropdown-show {
+  from { 
+    opacity: 0; 
+    transform: scale(0.96); 
+  }
+  to { 
+    opacity: 1; 
+    transform: scale(1); 
+  }
+}
+
+@keyframes dropdown-hide {
+  from { 
+    opacity: 1; 
+    transform: scale(1); 
+  }
+  to { 
+    opacity: 0; 
+    transform: scale(0.96); 
+  }
+}
+
+/* Target Radix UI Dialog */
+.fixed[data-state="open"][style*="background"] {
+  animation: overlay-show 200ms ease-out;
+}
+
+.fixed[data-state="closed"][style*="background"] {
+  animation: overlay-hide 150ms ease-in;
+}
+
+.fixed.left-\[50\%\][data-state="open"] {
+  animation: content-show 200ms ease-out;
+}
+
+.fixed.left-\[50\%\][data-state="closed"] {
+  animation: content-hide 150ms ease-in;
+}
+
+/* Target Radix UI Dropdown */
+.z-50[data-state="open"][class*="min-w"] {
+  animation: dropdown-show 150ms ease-out;
+}
+
+.z-50[data-state="closed"][class*="min-w"] {
+  animation: dropdown-hide 100ms ease-in;
+}
+
+/* Prevent viewport shift when dropdown opens on mobile */
+body {
+  overflow-x: hidden;
+}
+
 @layer base {
   * {
     @apply border-[var(--color-border)] outline-[var(--color-primary)];
