@@ -22,7 +22,7 @@ export function TimerControls({
         {isRunning ? "Pause" : "Start"}
       </button>
       <button
-        className="px-8 sm:px-11 py-[0.4rem] text-sm sm:text-base bg-primary text-primary-text border-primary border-2 rounded-r-full opacity-90 hover:opacity-70 transition-all duration-150 cursor-pointer select-none flex-1 sm:flex-none"
+        className="px-8 sm:px-11 py-[0.4rem] text-sm sm:text-base bg-primary text-primary-text border-primary border-2 rounded-r-full opacity-85 hover:opacity-70 transition-all duration-150 cursor-pointer select-none flex-1 sm:flex-none"
         onClick={onReset}
       >
         Reset

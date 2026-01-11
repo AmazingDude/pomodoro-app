@@ -75,9 +75,9 @@ export const themes = {
     },
   },
 
-  dusk: {
-    name: "dusk",
-    displayColor: "#c97be2",
+  periwinkle: {
+    name: "periwinkle",
+    displayColor: "#b3b5f4",
     cssVars: {
       "--color-background": "#f7f0fa",
       "--color-foreground": "#32283b",
@@ -108,6 +108,42 @@ export const themes = {
       "--color-border": "#d1d1d1",
       "--color-card": "#f9f9f9",
       "--color-progress": "#4e4e4e",
+    },
+  },
+
+  periwinkle: {
+    name: "periwinkle",
+    displayColor: "#b3b5f4",
+    cssVars: {
+      "--color-background": "#f2edf0",
+      "--color-foreground": "#2521ac",
+      "--color-primary": "#0904e3",
+      "--color-primary-text": "#FFFFFF",
+      "--color-secondary": "#a4a2fa",
+      "--color-secondary-text": "#241fa4",
+      "--color-secondary-hover": "#8283C8",
+      "--color-secondary-hover-text": "#FFFFFF",
+      "--color-border": "#8F90D0",
+      "--color-card": "#e8e3f0",
+      "--color-progress": "#1C1BD1",
+    },
+  },
+
+  bloom: {
+    name: "bloom",
+    displayColor: "#FF8FB7",
+    cssVars: {
+      "--color-background": "#F8F4EC",
+      "--color-foreground": "#43334C",
+      "--color-primary": "#E83C91",
+      "--color-primary-text": "#ffffff",
+      "--color-secondary": "#ffd4e5",
+      "--color-secondary-text": "#43334C",
+      "--color-secondary-hover": "#FF8FB7",
+      "--color-secondary-hover-text": "#ffffff",
+      "--color-border": "#f5c9db",
+      "--color-card": "#fcf9f3",
+      "--color-progress": "#E83C91",
     },
   },
 };
