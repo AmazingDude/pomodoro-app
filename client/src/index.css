@@ -115,12 +115,14 @@ button {
   animation: content-hide 150ms ease-in;
 }
 
-/* Target Radix UI Dropdown */
-.z-50[data-state="open"][class*="min-w"] {
+/* Target Radix UI Dropdown and Popover */
+[data-radix-popper-content-wrapper] [role="menu"][data-state="open"],
+[data-radix-popper-content-wrapper] [role="dialog"][data-state="open"] {
   animation: dropdown-show 150ms ease-out;
 }
 
-.z-50[data-state="closed"][class*="min-w"] {
+[data-radix-popper-content-wrapper] [role="menu"][data-state="closed"],
+[data-radix-popper-content-wrapper] [role="dialog"][data-state="closed"] {
   animation: dropdown-hide 100ms ease-in;
 }
 

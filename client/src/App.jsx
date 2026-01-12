@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { useTheme } from "./contexts/ThemeContext";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import SettingsDialogContent from "./components/SettingsDialogContent.jsx";
 import { Toaster } from "sonner";
 import { Header } from "./components/Header";
@@ -12,7 +17,7 @@ import { TimerControls } from "./components/TimerControls";
 import { useTimer } from "./hooks/useTimer";
 import { useAudio } from "./hooks/useAudio";
 import { usePictureInPicture } from "./hooks/usePictureInPicture";
-import { Settings, PictureInPicture2 } from "lucide-react";
+import { Settings, PictureInPicture2, Info, Github } from "lucide-react";
 
 function App() {
   const {
@@ -104,6 +109,54 @@ function App() {
           onResetAll={timer.handleResetAll}
           onAudioUnlock={unlockAudio}
         />
+
+        {/* About Button - Top Right */}
+        <Popover>
+          <PopoverTrigger asChild>
+            <button
+              className="fixed top-4 right-4 sm:top-7 sm:right-7 p-2 rounded-full bg-card text-foreground hover:bg-primary hover:text-primary-text transition-all duration-200 z-50 opacity-70 hover:opacity-100"
+              aria-label="About"
+            >
+              <Info className="w-5 h-5" />
+            </button>
+          </PopoverTrigger>
+          <PopoverContent
+            align="end"
+            className="w-72 sm:w-80 bg-card text-foreground border-border"
+          >
+            <div className="space-y-3">
+              <p className="text-sm leading-relaxed">
+                A pomodoro timer I wanted to build for a long time, so I finally
+                did it!
+              </p>
+
+              <p className="text-sm leading-relaxed">
+                Got suggestions?{" "}
+                <a
+                  href="https://github.com/AmazingDude/pomodoro-app/issues"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-primary transition-colors"
+                >
+                  Open an issue
+                </a>{" "}
+                on GitHub!
+              </p>
+
+              <p className="text-sm opacity-80 pt-2 border-t border-border/50">
+                Made with ❤️ by{" "}
+                <a
+                  href="https://github.com/AmazingDude"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-primary transition-colors"
+                >
+                  Rehan Haider
+                </a>
+              </p>
+            </div>
+          </PopoverContent>
+        </Popover>
 
         {/* Settings Button - Bottom Right */}
         <Dialog open={showSettingsDialog} onOpenChange={setShowSettingsDialog}>
