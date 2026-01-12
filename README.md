@@ -1,6 +1,6 @@
 # Pomotan 🍅
 
-> A beautiful, modern Pomodoro timer to help you focus better.
+> A cute, modern Pomodoro timer to help you focus better.
 
 **[✨ Try it live](https://pomotan.vercel.app)** | **[📖 Technical Docs](TECHNICAL.md)**
 
