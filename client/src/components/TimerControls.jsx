@@ -18,6 +18,20 @@ export function TimerControls({
     onStartPause();
   };
 
+  const handleReset = (e) => {
+    onReset();
+    // Remove focus from the trigger button
+    e.currentTarget.blur();
+    document.activeElement?.blur();
+  };
+
+  const handleResetAll = (e) => {
+    onResetAll();
+    // Remove focus from the trigger button
+    e.currentTarget.blur();
+    document.activeElement?.blur();
+  };
+
   return (
     <div className="flex w-full max-w-xs sm:max-w-none sm:w-auto">
       <button
@@ -40,14 +54,14 @@ export function TimerControls({
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start" className="w-32">
           <DropdownMenuItem
-            onClick={onReset}
+            onClick={handleReset}
             className="cursor-pointer flex-col items-start gap-0.5 hover:bg-primary/15"
           >
             <span className="font-medium">Reset Timer</span>
             <span className="text-xs opacity-60">Current session</span>
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={onResetAll}
+            onClick={handleResetAll}
             className="cursor-pointer flex-col items-start gap-0.5 hover:bg-primary/15"
           >
             <span className="font-medium">Reset All</span>
